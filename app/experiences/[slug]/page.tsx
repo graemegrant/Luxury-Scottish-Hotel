@@ -9,6 +9,10 @@ import { experiences as staticExperiences } from '@/lib/data';
 import { buildMetadata } from '@/lib/seo';
 import SectionLabel from '@/components/SectionLabel';
 
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0; 
+
 interface Props { params: { slug: string } }
 
 export async function generateMetadata({ params }: Props) {
@@ -22,9 +26,7 @@ export async function generateMetadata({ params }: Props) {
   });
 }
 
-export async function generateStaticParams() {
-  return staticExperiences.map(e => ({ slug: e.slug }));
-}
+
 
 export default async function ExperiencePage({ params }: Props) {
   const [sanityExp, allSanityExps] = await Promise.all([

@@ -11,6 +11,9 @@ import { buildMetadata, buildBlogPostingSchema } from '@/lib/seo';
 import SectionLabel from '@/components/SectionLabel';
 import PortableText from '@/components/PortableText';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0; 
+
 interface Props { params: { slug: string } }
 
 export async function generateMetadata({ params }: Props) {
@@ -24,9 +27,7 @@ export async function generateMetadata({ params }: Props) {
   });
 }
 
-export async function generateStaticParams() {
-  return staticPosts.map(p => ({ slug: p.slug }));
-}
+
 
 export default async function JournalPostPage({ params }: Props) {
   const [sanityPost, allSanityPosts, sanityRooms] = await Promise.all([
