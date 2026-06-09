@@ -10,7 +10,7 @@ import { journalPosts as staticPosts, rooms as staticRooms } from '@/lib/data';
 import { buildMetadata, buildBlogPostingSchema } from '@/lib/seo';
 import SectionLabel from '@/components/SectionLabel';
 import PortableText from '@/components/PortableText';
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 
 interface Props { params: { slug: string } }
 

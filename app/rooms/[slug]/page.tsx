@@ -6,7 +6,7 @@ import type { SanityRoom } from '@/sanity/lib/types';
 import { rooms as staticRooms } from '@/lib/data';
 import { buildMetadata, buildHotelRoomSchema } from '@/lib/seo';
 import RoomDetail from './RoomDetail';
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 
 interface Props { params: { slug: string } }
 

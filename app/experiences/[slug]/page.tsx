@@ -8,7 +8,7 @@ import type { SanityExperience } from '@/sanity/lib/types';
 import { experiences as staticExperiences } from '@/lib/data';
 import { buildMetadata } from '@/lib/seo';
 import SectionLabel from '@/components/SectionLabel';
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 
 interface Props { params: { slug: string } }
 
