@@ -6,6 +6,7 @@ import type { SanityRoom } from '@/sanity/lib/types';
 import { rooms as staticRooms } from '@/lib/data';
 import { buildMetadata, buildHotelRoomSchema } from '@/lib/seo';
 import RoomDetail from './RoomDetail';
+export const dynamic = 'force-static';
 
 interface Props { params: { slug: string } }
 
@@ -22,7 +23,9 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export async function generateStaticParams() {
-  return staticRooms.map(r => ({ slug: r.slug }));
+  const sanityRooms = await sanityFetch<SanityRoom[]>(ALL_ROOMS_QUERY).catch(() => []);
+  const rooms = sanityRooms?.length ? sanityRooms : staticRooms;
+  return rooms.map((r: any) => ({ slug: r.slug }));
 }
 
 export default async function RoomPage({ params }: Props) {
