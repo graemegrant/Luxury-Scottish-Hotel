@@ -12,14 +12,13 @@ import SectionLabel from '@/components/SectionLabel';
 interface Props { params: { slug: string } }
 
 export async function generateMetadata({ params }: Props) {
-  const exp = await sanityFetch<SanityExperience>(EXPERIENCE_BY_SLUG_QUERY, { slug: params.slug })
-    || staticExperiences.find(e => e.slug === params.slug);
+  const exp = staticExperiences.find(e => e.slug === params.slug);
   if (!exp) return {};
   return buildMetadata({
-    title: (exp as any).name,
-    description: (exp as any).description?.slice(0, 155),
+    title: exp.name,
+    description: exp.description?.slice(0, 155),
     path: `/experiences/${params.slug}`,
-    ogImage: (exp as any).image,
+    ogImage: exp.image,
   });
 }
 

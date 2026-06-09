@@ -14,14 +14,13 @@ import PortableText from '@/components/PortableText';
 interface Props { params: { slug: string } }
 
 export async function generateMetadata({ params }: Props) {
-  const post = await sanityFetch<SanityJournalPost>(JOURNAL_POST_BY_SLUG_QUERY, { slug: params.slug })
-    || staticPosts.find(p => p.slug === params.slug);
+  const post = staticPosts.find(p => p.slug === params.slug);
   if (!post) return {};
   return buildMetadata({
-    title: (post as any).title,
-    description: (post as any).excerpt?.slice(0, 155),
+    title: post.title,
+    description: post.excerpt?.slice(0, 155),
     path: `/journal/${params.slug}`,
-    ogImage: (post as any).image,
+    ogImage: post.image,
   });
 }
 

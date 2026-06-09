@@ -11,14 +11,13 @@ import RoomDetail from './RoomDetail';
 interface Props { params: { slug: string } }
 
 export async function generateMetadata({ params }: Props) {
-  const room = await sanityFetch<SanityRoom>(ROOM_BY_SLUG_QUERY, { slug: params.slug })
-    || staticRooms.find(r => r.slug === params.slug);
+  const room = staticRooms.find(r => r.slug === params.slug);
   if (!room) return {};
   return buildMetadata({
-    title: (room as any).name,
-    description: `${(room as any).shortDescription} Book direct from £${(room as any).rate}/night.`,
+    title: room.name,
+    description: `${room.shortDescription} Book direct from £${room.rate}/night.`,
     path: `/rooms/${params.slug}`,
-    ogImage: (room as any).image || (room as any).heroImage,
+    ogImage: room.image,
   });
 }
 
