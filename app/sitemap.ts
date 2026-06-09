@@ -8,10 +8,10 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://craigmorehouse.com
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [sanityRooms, sanityExps, sanityPosts] = await Promise.all([
-    sanityFetch<SanityRoom[]>(ALL_ROOMS_QUERY),
-    sanityFetch<SanityExperience[]>(ALL_EXPERIENCES_QUERY),
-    sanityFetch<SanityJournalPost[]>(ALL_JOURNAL_POSTS_QUERY),
-  ]);
+  sanityFetch<SanityRoom[]>(ALL_ROOMS_QUERY).catch(() => []),
+  sanityFetch<SanityExperience[]>(ALL_EXPERIENCES_QUERY).catch(() => []),
+  sanityFetch<SanityJournalPost[]>(ALL_JOURNAL_POSTS_QUERY).catch(() => []),
+]);
 
   const rooms = sanityRooms?.length ? sanityRooms : staticRooms;
   const experiences = sanityExps?.length ? sanityExps : staticExperiences;
