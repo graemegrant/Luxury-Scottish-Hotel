@@ -8,7 +8,6 @@ import type { SanityExperience } from '@/sanity/lib/types';
 import { experiences as staticExperiences } from '@/lib/data';
 import { buildMetadata } from '@/lib/seo';
 import SectionLabel from '@/components/SectionLabel';
-export const dynamic = 'force-dynamic';
 
 interface Props { params: { slug: string } }
 
@@ -25,9 +24,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export async function generateStaticParams() {
-  const sanityExps = await sanityFetch<SanityExperience[]>(ALL_EXPERIENCES_QUERY).catch(() => []);
-  const experiences = sanityExps?.length ? sanityExps : staticExperiences;
-  return experiences.map((e: any) => ({ slug: e.slug }));
+  return staticExperiences.map(e => ({ slug: e.slug }));
 }
 
 export default async function ExperiencePage({ params }: Props) {

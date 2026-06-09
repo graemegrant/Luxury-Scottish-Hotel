@@ -10,7 +10,6 @@ import { journalPosts as staticPosts, rooms as staticRooms } from '@/lib/data';
 import { buildMetadata, buildBlogPostingSchema } from '@/lib/seo';
 import SectionLabel from '@/components/SectionLabel';
 import PortableText from '@/components/PortableText';
-export const dynamic = 'force-dynamic';
 
 interface Props { params: { slug: string } }
 
@@ -27,9 +26,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export async function generateStaticParams() {
-  const sanityPosts = await sanityFetch<SanityJournalPost[]>(ALL_JOURNAL_POSTS_QUERY).catch(() => []);
-  const posts = sanityPosts?.length ? sanityPosts : staticPosts;
-  return posts.map((p: any) => ({ slug: p.slug }));
+  return staticPosts.map(p => ({ slug: p.slug }));
 }
 
 export default async function JournalPostPage({ params }: Props) {
