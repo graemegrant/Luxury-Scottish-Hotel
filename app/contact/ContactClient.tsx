@@ -14,6 +14,8 @@ export default function ContactClient({ faqs = [], faqsOnly = false }: Props) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [form, setForm] = useState({ name: '', email: '', phone: '', type: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  // When the form appeared: the server rejects posts sent faster than a person types.
+  const [startedAt] = useState(() => Date.now());
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +24,7 @@ export default function ContactClient({ faqs = [], faqsOnly = false }: Props) {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, startedAt }),
       });
       setStatus(res.ok ? 'sent' : 'error');
     } catch {
